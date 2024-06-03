@@ -7,6 +7,17 @@ where Discontinued = 1 and UnitPrice > (select avg(UnitPrice) from Products)
 go
 
 /*
+Ejercicio 20
+*/
+select *
+from Products
+where  Discontinued = 0 and CategoryID = 8 and ProductID not in (select  P.productid
+								from Products as p
+									inner join [Order Details] as OD on P.ProductID = OD.ProductID
+									inner join Orders as O on OD.OrderID = O.OrderID
+								where Discontinued = 0 and CategoryID = 8 and OrderDate between '20160801' and '20160815')
+
+/*
 Ejercicio 22
 */
 create function FItemsQuantyByCategoryByProductByYear (@year int) returns table
